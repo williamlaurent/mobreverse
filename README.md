@@ -8,8 +8,8 @@
 - Perform reverse engineering and static analysis of APKs.  
 
 ## Version and updates  
-v1.0 - 16 November 2024
-First version release
+**v1.0 - 16 November 2024**
+- First version release
 
 ---
 
