@@ -9,12 +9,11 @@ import re
 from bs4 import BeautifulSoup
 
 def detect_hardcoded_keys(apk_path):
-    # Extract the APK file
+
     extracted_path = apk_path.replace(".apk", "")
     with zipfile.ZipFile(apk_path, 'r') as zip_ref:
         zip_ref.extractall(extracted_path)
 
-    # Search for hardcoded keys in the manifest and other files
     key_patterns = [
         r'api_key=[\w-]+',
         r'secret_key=[\w-]+',
@@ -33,13 +32,11 @@ def detect_hardcoded_keys(apk_path):
                         if matches:
                             hardcoded_keys.extend(matches)
 
-    # Clean up the extracted files
     shutil.rmtree(extracted_path)
 
     return hardcoded_keys
 
 def identify_excessive_permissions(apk_path):
-    # Parse the AndroidManifest.xml file
     with zipfile.ZipFile(apk_path, 'r') as zip_ref:
         with zip_ref.open('AndroidManifest.xml') as manifest_file:
             manifest_content = manifest_file.read().decode('utf-8', errors='ignore')
@@ -52,7 +49,6 @@ def identify_excessive_permissions(apk_path):
     for permission in permissions:
         perm = permission.get('android:name')
         if perm:
-            # List of excessive permissions
             excessive_permissions_list = [
                 'android.permission.READ_SMS',
                 'android.permission.READ_CONTACTS',
@@ -66,19 +62,16 @@ def identify_excessive_permissions(apk_path):
     return excessive_permissions
 
 def static_analysis(apk_path):
-    # Extract the APK file
     extracted_path = apk_path.replace(".apk", "")
     with zipfile.ZipFile(apk_path, 'r') as zip_ref:
         zip_ref.extractall(extracted_path)
 
-    # Perform static analysis (for demonstration, we'll just list files)
     analyzed_files = []
 
     for root, dirs, files in os.walk(extracted_path):
         for file in files:
             analyzed_files.append(file)
 
-    # Clean up the extracted files
     shutil.rmtree(extracted_path)
 
     return analyzed_files
