@@ -7,9 +7,14 @@
 - Analyze permissions for potential risks.  
 - Perform reverse engineering and static analysis of APKs.  
 
-## Purpose  
-Mobreverse helps identify and fix vulnerabilities in Android apps.  
+## Version and updates  
+v1.0 - 16 November 2024
+First version release
 
 ---
 
 Use responsibly and follow ethical guidelines. 🚀  
+
+---
+
+Manado, Indonesia
