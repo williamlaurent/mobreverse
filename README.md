@@ -8,6 +8,12 @@
 - Perform reverse engineering and static analysis of APKs.  
 
 ## Version and updates  
+**v1.1 - 2 Desember 2024**
+- Enhanced key detection
+- Permission analysis
+- Static analysis
+- Repackaging detection
+
 **v1.0 - 16 November 2024**
 - First version release
 
