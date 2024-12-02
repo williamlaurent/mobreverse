@@ -9,7 +9,6 @@ import re
 from bs4 import BeautifulSoup
 
 def detect_hardcoded_keys(apk_path):
-
     extracted_path = apk_path.replace(".apk", "")
     with zipfile.ZipFile(apk_path, 'r') as zip_ref:
         zip_ref.extractall(extracted_path)
@@ -17,7 +16,9 @@ def detect_hardcoded_keys(apk_path):
     key_patterns = [
         r'api_key=[\w-]+',
         r'secret_key=[\w-]+',
-        r'token=[\w-]+'
+        r'token=[\w-]+',
+        r'password=[\w-]+',
+        r'encryption_key=[\w-]+'
     ]
 
     hardcoded_keys = []
@@ -54,7 +55,9 @@ def identify_excessive_permissions(apk_path):
                 'android.permission.READ_CONTACTS',
                 'android.permission.CALL_PHONE',
                 'android.permission.CAMERA',
-                'android.permission.RECORD_AUDIO'
+                'android.permission.RECORD_AUDIO',
+                'android.permission.ACCESS_FINE_LOCATION',
+                'android.permission.READ_EXTERNAL_STORAGE'
             ]
             if perm in excessive_permissions_list:
                 excessive_permissions.append(perm)
@@ -70,11 +73,15 @@ def static_analysis(apk_path):
 
     for root, dirs, files in os.walk(extracted_path):
         for file in files:
-            analyzed_files.append(file)
+            analyzed_files.append((file, os.path.getsize(os.path.join(root, file))))
 
     shutil.rmtree(extracted_path)
 
     return analyzed_files
+
+def repackaging_detection(apk_path):
+    # Placeholder for repackaging detection logic
+    return "Repackaging detection not implemented"
 
 if __name__ == "__main__":
     apk_path = "CHANGE APK HERE.apk"
@@ -91,5 +98,9 @@ if __name__ == "__main__":
 
     print("\nStatic Analysis (Files Listed):")
     analyzed_files = static_analysis(apk_path)
-    for file in analyzed_files:
-        print(file)
+    for file, size in analyzed_files:
+        print(f"{file} - {size} bytes")
+
+    print("\nRepackaging Detection:")
+    repackaging_result = repackaging_detection(apk_path)
+    print(repackaging_result)
